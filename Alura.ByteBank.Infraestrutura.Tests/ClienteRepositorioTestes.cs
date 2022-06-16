@@ -1,0 +1,27 @@
+using Alura.ByteBank.Dados.Repositorio;
+using Alura.ByteBank.Dominio.Interfaces.Repositorios;
+using Microsoft.Extensions.DependencyInjection;
+using Xunit;
+
+namespace Alura.ByteBank.Infraestrutura.Tests {
+  public class ClienteRepositorioTestes {
+      private readonly IClienteRepositorio repositorio;
+      public ClienteRepositorioTestes() {
+          var servico = new ServiceCollection();
+          servico.AddTransient<IClienteRepositorio, ClienteRepositorio>();
+          var provedor = servico.BuildServiceProvider();
+          this.repositorio = provedor.GetService<IClienteRepositorio>();
+      }
+
+      [Fact]
+      public void TesteObterTodosClientes() {
+          //Arrange
+          //Act
+          var lista = this.repositorio.ObterTodos();
+
+          //Assert
+          Assert.NotNull(lista);
+          Assert.Equal(3, lista.Count);
+      }
+  }
+}
