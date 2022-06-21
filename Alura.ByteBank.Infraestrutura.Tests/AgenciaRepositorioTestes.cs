@@ -5,10 +5,6 @@ using Alura.ByteBank.Infraestrutura.Tests.Servico;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -28,7 +24,7 @@ namespace Alura.ByteBank.Infraestrutura.Tests {
       this.repositorio = provedor.GetService<IAgenciaRepositorio>();
     }
     [Fact]
-    public void TesteObterTodosContasCorrentes() {
+    public void TesteObterTodoasAgencias() {
         //Arrange
         //Act
         var lista = this.repositorio.ObterTodos();
@@ -38,7 +34,7 @@ namespace Alura.ByteBank.Infraestrutura.Tests {
         Assert.Equal(2, lista.Count);
     }
     [Fact]
-    public void TestaObterContaPorId() {
+    public void TestaObterAgenciaPorId() {
         //Arrange
         //Act
         var agencia = this.repositorio.ObterPorId(1);
@@ -50,7 +46,7 @@ namespace Alura.ByteBank.Infraestrutura.Tests {
     [Theory]
     [InlineData(1)]
     [InlineData(2)]
-    public void TestaObterContaPorVariosId(int id) {
+    public void TestaObterAgenciaPorVariosId(int id) {
         //Arrange
         //Act
         var agencia = this.repositorio.ObterPorId(id);
@@ -134,7 +130,7 @@ namespace Alura.ByteBank.Infraestrutura.Tests {
 
     //mock
     [Fact]
-    public void TesteObterAgenciasMock() {
+    public void TestaObterAgenciasMock() {
         //Arrange
         var byteBankRepositorioMock = new Mock<IByteBankRepositorio>();
         var mock = byteBankRepositorioMock.Object;
