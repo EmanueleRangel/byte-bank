@@ -1,6 +1,8 @@
 using Alura.ByteBank.Dados.Repositorio;
+using Alura.ByteBank.Dominio.Entidades;
 using Alura.ByteBank.Dominio.Interfaces.Repositorios;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using Xunit;
 
 namespace Alura.ByteBank.Infraestrutura.Tests {
@@ -44,6 +46,42 @@ namespace Alura.ByteBank.Infraestrutura.Tests {
 
           //Assert
           Assert.NotNull(cliente);
+      }
+
+      [Fact]
+      public void TestaAtualizaNomeDeterminadoCliente() {
+        //Arrange
+        var cliente = this.repositorio.ObterPorId(1);
+        var nomeNovo = "José Oliveira";
+        cliente.Nome = nomeNovo;
+
+        //Act
+        var atualizado = this.repositorio.Atualizar(1, cliente);
+
+        //Assert
+        Assert.True(atualizado);
+      }
+
+      [Fact]
+      public void TesteInsereUmNovoClienteNaBaseDeDados() {
+        //Arrange            
+        var nome = "Alberto Roberto";
+        var cpf = "088.157.930-03";
+        var identificador = Guid.NewGuid();
+        var profissao = "Administrador de Empresas";
+
+        var cliente = new Cliente() {
+          Nome = nome,
+          CPF = cpf,
+          Identificador = identificador,
+          Profissao = profissao
+        };
+
+        //Act
+        var retorno = this.repositorio.Adicionar(cliente);
+
+        //Assert
+        Assert.True(retorno);
       }
   }
 }
