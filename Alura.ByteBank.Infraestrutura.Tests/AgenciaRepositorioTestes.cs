@@ -1,4 +1,5 @@
 using Alura.ByteBank.Dados.Repositorio;
+using Alura.ByteBank.Dominio.Entidades;
 using Alura.ByteBank.Dominio.Interfaces.Repositorios;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -50,5 +51,58 @@ namespace Alura.ByteBank.Infraestrutura.Tests {
         //Assert
         Assert.NotNull(agencia);
     }
+
+    [Fact]
+    public void TestaAtualizaNumeroDeterminadaAgencia() {
+      //Arrange
+      var agencia = this.repositorio.ObterPorId(1);
+      var numeroNovo = 178;
+      agencia.Numero = numeroNovo;
+
+      //Act
+      var atualizado = this.repositorio.Atualizar(1, agencia);
+
+      //Assert
+      Assert.True(atualizado);
+    }
+
+    [Fact]
+    public void TestaInsereUmaNovaAgencia() {
+        //Arrange            
+        var nome = "Agencia Guarapari";
+        var numero = 125982;
+        var identificador = Guid.NewGuid();
+        var endereco = "Rua: 7 de Setembro - Centro";
+
+        var agencia = new Agencia() {
+          Nome = nome,
+          Identificador = identificador,
+          Endereco = endereco,
+          Numero = numero
+        };
+
+        //Act
+        var retorno = this.repositorio.Adicionar(agencia);
+
+        //Assert
+        Assert.True(retorno);
+    }
+    
+    [Fact]
+    public void TestaRemoverDeterminadaAgencia() {
+        //Arrange
+        //Act
+        var atualizado = this.repositorio.Excluir(3);
+
+        //Assert
+        Assert.True(atualizado);
+    }
+
+    [Fact]
+    public void TestaExcecaoConsultaAgenciaPorId() =>
+        //Act
+        //Assert
+        Assert.Throws<FormatException>(
+          () => this.repositorio.ObterPorId(33));
   }
 }
