@@ -1,6 +1,8 @@
 using Alura.ByteBank.Dados.Repositorio;
+using Alura.ByteBank.Dominio.Entidades;
 using Alura.ByteBank.Dominio.Interfaces.Repositorios;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using Xunit;
 
 namespace Alura.ByteBank.Infraestrutura.Tests {
@@ -45,6 +47,48 @@ namespace Alura.ByteBank.Infraestrutura.Tests {
 
         //Assert
         Assert.NotNull(conta);
+    }
+
+    [Fact]
+    public void TestaAtualizaSaldoDeterminadaConta() {
+        //Arrange
+        var conta = this.repositorio.ObterPorId(1);
+        double saldoNovo = 15;
+        conta.Saldo = saldoNovo;
+
+        //Act
+        var atualizado = this.repositorio.Atualizar(1, conta);
+
+        //Assert
+        Assert.True(atualizado);
+    }
+
+    [Fact]
+    public void TestaInsereUmaNovaContaCorrente() {
+        //Arrange
+        var conta = new ContaCorrente() {
+          Saldo = 10,
+          Identificador = Guid.NewGuid(),
+          Cliente = new Cliente() {
+            Nome = "Linelson Santos",
+            CPF = "486.074.980-45",
+            Identificador = Guid.NewGuid(),
+            Profissao = "Bancário",
+            Id = 1
+          },
+          Agencia = new Agencia() {
+            Nome = "Agencia Central Coast City",
+            Identificador = Guid.NewGuid(),
+            Id = 1,
+            Endereco = "Rua das Flores, 25",
+            Numero = 147
+          }
+        };
+        //Act
+        var retorno = this.repositorio.Adicionar(conta);
+
+        //Assert
+        Assert.True(retorno);
     }
   }
 }
