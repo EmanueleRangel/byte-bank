@@ -28,7 +28,7 @@ namespace Alura.ByteBank.Infraestrutura.Tests {
 
         //Assert
         Assert.NotNull(lista);
-        Assert.Equal(2, lista.Count);
+        Assert.Equal(4, lista.Count);
     }
     [Fact]
     public void TestaObterContaPorId() {
@@ -94,6 +94,7 @@ namespace Alura.ByteBank.Infraestrutura.Tests {
         Assert.True(retorno);
     }
 
+    //stub
     [Fact]
     public void TestaConsultaPix() {
         //Arrange

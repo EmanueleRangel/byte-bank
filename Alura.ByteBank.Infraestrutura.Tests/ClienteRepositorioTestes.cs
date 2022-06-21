@@ -23,7 +23,7 @@ namespace Alura.ByteBank.Infraestrutura.Tests {
 
           //Assert
           Assert.NotNull(lista);
-          Assert.Equal(3, lista.Count);
+          Assert.Equal(5, lista.Count);
       }
 
       [Fact]

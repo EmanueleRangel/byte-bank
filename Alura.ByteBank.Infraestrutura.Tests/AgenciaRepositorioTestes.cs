@@ -10,12 +10,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Alura.ByteBank.Infraestrutura.Tests {
   public class AgenciaRepositorioTestes {
     private readonly IAgenciaRepositorio repositorio;
+    public ITestOutputHelper SaidaConsoleTeste { get; set; }
 
-    public AgenciaRepositorioTestes () {
+    public AgenciaRepositorioTestes (ITestOutputHelper saidaConsoleTeste) {
+      this.SaidaConsoleTeste = saidaConsoleTeste;
+      this.SaidaConsoleTeste.WriteLine("Construtor executado com sucesso.");
+      
       var servico = new ServiceCollection();
       servico.AddTransient<IAgenciaRepositorio, AgenciaRepositorio>();
 
@@ -94,7 +99,7 @@ namespace Alura.ByteBank.Infraestrutura.Tests {
     public void TestaRemoverDeterminadaAgencia() {
         //Arrange
         //Act
-        var atualizado = this.repositorio.Excluir(3);
+        var atualizado = this.repositorio.Excluir(4);
 
         //Assert
         Assert.True(atualizado);
@@ -126,6 +131,8 @@ namespace Alura.ByteBank.Infraestrutura.Tests {
         //Assert
         Assert.True(adicionado);
     }
+
+    //mock
     [Fact]
     public void TesteObterAgenciasMock() {
         //Arrange
